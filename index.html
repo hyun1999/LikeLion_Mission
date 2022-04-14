@@ -49,9 +49,9 @@
                             <li class="nav-item">
                                 <a class="nav-link disabled">검색결과</a>
                             </li>
-                            <button class="profile-hide" onclick="profile_hide()">프로필 숨기기</button>
-                            <button class="career-hide" onclick="career_hide()">커리어 숨기기</button>
-                            <button class="night-mode" onclick="dark_mode()">야간모드</button>
+                            <button class="profile-hide" onclick="profileHide()">프로필 숨기기</button>
+                            <button class="career-hide" onclick="careerHide()">커리어 숨기기</button>
+                            <button class="dark-mode" onclick="darkMode()">야간모드</button>
                         </ul>
 
                     </div>
@@ -67,7 +67,7 @@
         </div>
         <div class="context-profile">
             <img class="profile" src="photo/park.jpg" alt="프로필 사진">
-            <button class="change_btn" onclick="change_image()">사진 숨기기</button>
+            <button class="change_btn" onclick="changeImage()">사진 숨기기</button>
             <div id="textbox">
                 <p class="text">이름: 박현서</p>
                 <p class="text">나이: 24</p>
@@ -95,24 +95,31 @@
     </footer>
 
     <script>
-        function dark_mode() {
-            if (document.querySelector("body").style.color == "black") {
-                document.querySelector("body").style.backgroundColor = "black";
-                document.querySelector("body").style.color = "blue";
-                document.querySelector(".night-mode").style.backgroundColor = "white";
-                document.querySelector(".night-mode").style.color = "black";
-                document.querySelector(".night-mode").innerHTML = "주간모드";
+        const body = document.querySelector("body");
+        const nightModeBtn = document.querySelector(".dark-mode");
+
+        nightModeBtn.addEventListener("click", darkMode()); // click 이벤트
+
+        function darkMode() { // 함수명 camelCase
+            const isDark = body.style.color === "black";
+
+            if (isDark) {
+                body.style.backgroundColor = "black";
+                body.style.color = "blue";
+                nightModeBtn.style.backgroundColor = "white";
+                nightModeBtn.style.color = "black";
+                nightModeBtn.innerHTML = "주간모드";
+            } else {
+                body.style.backgroundColor = "white";
+                body.style.color = "black";
+                nightModeBtn.style.backgroundColor = "black";
+                nightModeBtn.style.color = "white";
+                nightModeBtn.innerHTML = "야간모드";
             }
-            else {
-                document.querySelector("body").style.backgroundColor = "white";
-                document.querySelector("body").style.color = "black"
-                document.querySelector(".night-mode").style.backgroundColor = "black";
-                document.querySelector(".night-mode").style.color = "white";
-                document.querySelector(".night-mode").innerHTML = "야간모드";
-            }
+
         }
-        function change_image() {
-            var image = document.querySelector(".profile");
+        function changeImage() {
+            const image = document.querySelector(".profile");
             if (image.src.match('photo/park.jpg')) {
                 image.src = 'photo/person.png';
             }
@@ -120,20 +127,32 @@
                 image.src = 'photo/park.jpg';
             }
         }
-        function profile_hide() {
-            if (document.querySelector(".context-profile").style.display == 'block') {
-                document.querySelector(".context-profile").style.display = 'none';
+
+        const contextProfile = document.querySelector(".context-profile");
+
+        function profileHide() {
+
+            const isBlock = contextProfile.style.display == 'block'
+            
+            if (isBlock) {
+                contextProfile.style.display = 'none';
             }
             else {
-                document.querySelector(".context-profile").style.display = 'block';
+                contextProfile.style.display = 'block';
             }
         }
-        function career_hide() {
-            if (document.querySelector(".context-career").style.display == 'block') {
-                document.querySelector(".context-career").style.display = 'none';
+
+        const contextCareer = document.querySelector(".context-career");
+
+        function careerHide() {
+
+            const isBlock = contextProfile.style.display == 'block'
+
+            if (isBlock) {
+                contextCareer.style.display = 'none';
             }
             else {
-                document.querySelector(".context-career").style.display = 'block';
+                contextCareer.style.display = 'block';
             }
         }
     </script>
